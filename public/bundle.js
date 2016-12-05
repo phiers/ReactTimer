@@ -25742,7 +25742,7 @@
 /* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -25772,20 +25772,33 @@
 	  }
 
 	  _createClass(Controls, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
+	      var countdownStatus = this.props.countdownStatus;
+
+	      var renderStartStopButton = function renderStartStopButton() {
+	        if (countdownStatus === 'started') {
+	          return _react2.default.createElement(
+	            'button',
+	            { className: 'button secondary' },
+	            'Pause'
+	          );
+	        } else if (countdownStatus === 'paused') {
+	          return _react2.default.createElement(
+	            'button',
+	            { className: 'button primary' },
+	            'Start'
+	          );
+	        }
+	      };
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "button-group" },
+	        'div',
+	        { className: 'controls' },
+	        renderStartStopButton(),
 	        _react2.default.createElement(
-	          "a",
-	          { className: "button" },
-	          "Start"
-	        ),
-	        _react2.default.createElement(
-	          "a",
-	          { className: "button" },
-	          "Reset"
+	          'button',
+	          { className: 'button alert hollow' },
+	          'Clear'
 	        )
 	      );
 	    }
@@ -25796,6 +25809,10 @@
 
 	exports.default = Controls;
 	;
+
+	Controls.propTypes = {
+	  countdownStatus: _react2.default.PropTypes.string.isRequired
+	};
 
 /***/ },
 /* 234 */
