@@ -25668,7 +25668,7 @@
 /* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -25698,15 +25698,27 @@
 	  }
 
 	  _createClass(Clock, [{
-	    key: 'render',
+	    key: "formatSeconds",
+	    value: function formatSeconds(totalSeconds) {
+	      var seconds = totalSeconds % 60;
+	      var minutes = Math.floor(totalSeconds / 60);
+	      seconds = seconds < 10 ? "0" + seconds : seconds;
+	      minutes = minutes < 10 ? "0" + minutes : minutes;
+
+	      return minutes + ":" + seconds;
+	    }
+	  }, {
+	    key: "render",
 	    value: function render() {
+	      var totalSeconds = this.props.totalSeconds;
+
 	      return _react2.default.createElement(
-	        'div',
-	        null,
+	        "div",
+	        { className: "clock" },
 	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '00:00'
+	          "span",
+	          { className: "clock-text" },
+	          this.formatSeconds(totalSeconds)
 	        )
 	      );
 	    }
@@ -25717,6 +25729,14 @@
 
 	exports.default = Clock;
 	;
+
+	Clock.defaultProps = {
+	  totalSeconds: 0
+	};
+
+	Clock.propTypes = {
+	  totalSeconds: _react2.default.PropTypes.number
+	};
 
 /***/ },
 /* 233 */
