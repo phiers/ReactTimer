@@ -6,8 +6,7 @@ export default class Countdown extends React.Component {
   render() {
     return (
     <div>
-      <p>Countdown</p>
-      <Clock />
+      <Clock totalSeconds={129}/>
       <Controls />
     </div>
     )
