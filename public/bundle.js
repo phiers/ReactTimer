@@ -25537,8 +25537,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	//this is the same as var Link = require('react-router.link')
-
 	var Nav = function Nav() {
 	  return _react2.default.createElement(
 	    'div',
@@ -25589,7 +25587,7 @@
 	            'Created by ',
 	            _react2.default.createElement(
 	              'a',
-	              { href: '#', target: '_blank' },
+	              { href: '', target: '_blank' },
 	              'Paul Hiers'
 	            )
 	          )
@@ -25598,6 +25596,7 @@
 	    )
 	  );
 	};
+
 	module.exports = Nav;
 
 /***/ },
@@ -25662,7 +25661,6 @@
 	}(_react2.default.Component);
 
 	exports.default = Timer;
-	;
 
 /***/ },
 /* 232 */
@@ -25728,7 +25726,7 @@
 	}(_react2.default.Component);
 
 	exports.default = Clock;
-	;
+
 
 	Clock.defaultProps = {
 	  totalSeconds: 0
@@ -25808,7 +25806,7 @@
 	}(_react2.default.Component);
 
 	exports.default = Controls;
-	;
+
 
 	Controls.propTypes = {
 	  countdownStatus: _react2.default.PropTypes.string.isRequired
@@ -25858,6 +25856,7 @@
 	      count: 0,
 	      countdownStatus: 'stopped'
 	    };
+	    _this.handleSetCountdown = _this.handleSetCountdown.bind(_this);
 	    return _this;
 	  }
 
@@ -25903,7 +25902,7 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_Clock2.default, { totalSeconds: count }),
-	        _react2.default.createElement(_CountdownForm2.default, { onSetCountdown: this.handleSetCountdown.bind(this) })
+	        _react2.default.createElement(_CountdownForm2.default, { onSetCountdown: this.handleSetCountdown })
 	      );
 	    }
 	  }]);
@@ -25912,7 +25911,6 @@
 	}(_react2.default.Component);
 
 	exports.default = Countdown;
-	;
 
 /***/ },
 /* 235 */

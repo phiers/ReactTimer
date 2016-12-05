@@ -1,10 +1,10 @@
-var webpack = require('webpack');
+const webpack = require('webpack');
 
 module.exports = {
   entry: [
     'script!jquery/dist/jquery.min.js',
     'script!foundation-sites/dist/foundation.min.js',
-    './app/app.jsx'
+    './app/app.jsx',
   ],
   externals: {
     jquery: 'jQuery',
@@ -12,16 +12,16 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       '$': 'jquery',
-      'jQuery': 'jquery'
-    })
+      'jQuery': 'jquery',
+    }),
   ],
   output: {
     path: __dirname,
-    filename: '/public/bundle.js'
+    filename: '/public/bundle.js',
   },
   resolve: {
     root: __dirname,
-    alias: { //set paths to files I'll be requiring
+    alias: { // set paths to files I'll be requiring
       Main: 'app/components/Main.jsx',
       Nav: 'app/components/Nav.jsx',
       Timer: 'app/components/Timer.jsx',
@@ -29,20 +29,19 @@ module.exports = {
       CountdownForm: 'app/components/CountdownForm.jsx',
       Clock: 'app/components/Clock.jsx',
       Controls: 'app/components/Controls.jsx',
-      applicationStyles: 'app/styles/app.scss'
+      applicationStyles: 'app/styles/app.scss',
     },
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
   },
   module: {
     loaders: [{
       loader: 'babel-loader',
       query: {
-        presets: ['react', 'es2015']
+        presets: ['react', 'es2015'],
       },
       test: /\.jsx?$/,
-      exclude: /(node_modules|bower_components)/
-    }]
+      exclude: /(node_modules|bower_components)/,
+    }],
   },
-  devTool: 'inline-source-map'
-
+  devTool: 'inline-source-map',
 };

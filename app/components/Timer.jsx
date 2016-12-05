@@ -5,11 +5,11 @@ import Controls from 'Controls';
 export default class Timer extends React.Component {
   render() {
     return (
-    <div>
-      <p>Timer</p>
-      <Clock />
-      <Controls />
-    </div>
-    )
+      <div>
+        <p>Timer</p>
+        <Clock />
+        <Controls />
+      </div>
+    );
   }
-};
+}

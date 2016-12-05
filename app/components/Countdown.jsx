@@ -7,8 +7,9 @@ export default class Countdown extends React.Component {
     super(props);
     this.state = {
       count: 0,
-      countdownStatus: 'stopped'
+      countdownStatus: 'stopped',
     };
+    this.handleSetCountdown = this.handleSetCountdown.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -24,27 +25,27 @@ export default class Countdown extends React.Component {
   }
 
   startTimer() {
-      this.timer = setInterval(() => {
-        let newCount = this.state.count - 1;
-        this.setState({
-          count: newCount >= 0 ? newCount : 0
-        });
-      }, 1000);
+    this.timer = setInterval(() => {
+      const newCount = this.state.count - 1;
+      this.setState({
+        count: newCount >= 0 ? newCount : 0,
+      });
+    }, 1000);
   }
 
   handleSetCountdown(seconds) {
     this.setState({
       count: seconds,
-      countdownStatus: 'started'
+      countdownStatus: 'started',
     });
   }
   render() {
-    let {count} = this.state;
+    const { count } = this.state;
     return (
-    <div>
-      <Clock totalSeconds={count}/>
-      <CountdownForm onSetCountdown={this.handleSetCountdown.bind(this)}/>
-    </div>
-    )
+      <div>
+        <Clock totalSeconds={count} />
+        <CountdownForm onSetCountdown={this.handleSetCountdown} />
+      </div>
+    );
   }
-};
+}
