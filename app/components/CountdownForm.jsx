@@ -5,7 +5,7 @@ export default class CountdownForm extends React.Component {
     evt.preventDefault();
     const secondsStr = this.refs.seconds.value;
 
-    if (secondsStr.match(/^[0-9]*$/)) {
+    if (secondsStr.match(/^[0-9]*$/) && secondsStr !== '') {
       this.refs.seconds.value = '';
       this.props.onSetCountdown(parseInt(secondsStr, 10));
     }
