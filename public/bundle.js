@@ -25770,24 +25770,37 @@
 	  }
 
 	  _createClass(Controls, [{
+	    key: 'onStatusChange',
+	    value: function onStatusChange(newStatus) {
+	      var _this2 = this;
+
+	      return function () {
+	        _this2.props.onStatusChange(newStatus);
+	      };
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this3 = this;
+
 	      var countdownStatus = this.props.countdownStatus;
 
 	      var renderStartStopButton = function renderStartStopButton() {
+	        var button = void 0;
 	        if (countdownStatus === 'started') {
-	          return _react2.default.createElement(
+	          button = _react2.default.createElement(
 	            'button',
-	            { className: 'button secondary' },
+	            { className: 'button secondary', onClick: _this3.onStatusChange('paused') },
 	            'Pause'
 	          );
 	        } else if (countdownStatus === 'paused') {
-	          return _react2.default.createElement(
+	          button = _react2.default.createElement(
 	            'button',
-	            { className: 'button primary' },
+	            { className: 'button primary', onClick: _this3.onStatusChange('started') },
 	            'Start'
 	          );
 	        }
+	        return button;
 	      };
 	      return _react2.default.createElement(
 	        'div',
@@ -25795,7 +25808,7 @@
 	        renderStartStopButton(),
 	        _react2.default.createElement(
 	          'button',
-	          { className: 'button alert hollow' },
+	          { className: 'button alert hollow', onClick: this.onStatusChange('stopped') },
 	          'Clear'
 	        )
 	      );
@@ -25809,7 +25822,8 @@
 
 
 	Controls.propTypes = {
-	  countdownStatus: _react2.default.PropTypes.string.isRequired
+	  countdownStatus: _react2.default.PropTypes.string.isRequired,
+	  onStatusChange: _react2.default.PropTypes.func.isRequired
 	};
 
 /***/ },
@@ -25836,6 +25850,10 @@
 
 	var _CountdownForm2 = _interopRequireDefault(_CountdownForm);
 
+	var _Controls = __webpack_require__(233);
+
+	var _Controls2 = _interopRequireDefault(_Controls);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25857,6 +25875,7 @@
 	      countdownStatus: 'stopped'
 	    };
 	    _this.handleSetCountdown = _this.handleSetCountdown.bind(_this);
+	    _this.handleStatusChange = _this.handleStatusChange.bind(_this);
 	    return _this;
 	  }
 
@@ -25868,10 +25887,23 @@
 	          case 'started':
 	            this.startTimer();
 	            break;
+	          case 'stopped':
+	            this.clearTimer();
+	          case 'paused':
+	            clearInterval(this.timer);
+	            this.timer = undefined;
+	            break;
 	          default:
 	            break;
 	        }
 	      }
+	    }
+	    // I only made this function becuase ESLint doesn't like setState in CWU
+
+	  }, {
+	    key: 'clearTimer',
+	    value: function clearTimer() {
+	      this.setState({ count: 0 });
 	    }
 	  }, {
 	    key: 'startTimer',
@@ -25881,7 +25913,8 @@
 	      this.timer = setInterval(function () {
 	        var newCount = _this2.state.count - 1;
 	        _this2.setState({
-	          count: newCount >= 0 ? newCount : 0
+	          count: newCount >= 0 ? newCount : 0,
+	          countdownStatus: newCount >= 0 ? 'started' : 'stopped'
 	        });
 	      }, 1000);
 	    }
@@ -25894,15 +25927,37 @@
 	      });
 	    }
 	  }, {
+	    key: 'handleStatusChange',
+	    value: function handleStatusChange(newStatus) {
+	      this.setState({ countdownStatus: newStatus });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var count = this.state.count;
+	      var _this3 = this;
+
+	      var _state = this.state,
+	          count = _state.count,
+	          countdownStatus = _state.countdownStatus;
+
+	      var renderControlsArea = function renderControlsArea() {
+	        var controlArea = void 0;
+	        if (countdownStatus !== 'stopped') {
+	          controlArea = _react2.default.createElement(_Controls2.default, {
+	            countdownStatus: countdownStatus,
+	            onStatusChange: _this3.handleStatusChange
+	          });
+	        } else {
+	          controlArea = _react2.default.createElement(_CountdownForm2.default, { onSetCountdown: _this3.handleSetCountdown });
+	        }
+	        return controlArea;
+	      };
 
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(_Clock2.default, { totalSeconds: count }),
-	        _react2.default.createElement(_CountdownForm2.default, { onSetCountdown: this.handleSetCountdown })
+	        renderControlsArea()
 	      );
 	    }
 	  }]);
@@ -26364,7 +26419,7 @@
 
 
 	// module
-	exports.push([module.id, ".top-bar, .top-bar ul {\n  background-color: #333333; }\n\n.top-bar .menu-text {\n  color: white; }\n\n.top-bar .menu > .menu-text > a {\n  display: inline;\n  padding: 0; }\n\n.top-bar .active-link {\n  font-weight: bold; }\n\n.clock {\n  align-items: center;\n  background-color: #B5D0E2;\n  border: 2px solid #2099E8;\n  border-radius: 50%;\n  display: flex;\n  height: 14rem;\n  justify-content: center;\n  margin: 4rem auto;\n  width: 14rem; }\n\n.clock-text {\n  color: white;\n  font-size: 2.25rem;\n  font-weight: 300; }\n", ""]);
+	exports.push([module.id, ".top-bar, .top-bar ul {\n  background-color: #333333; }\n\n.top-bar .menu-text {\n  color: white; }\n\n.top-bar .menu > .menu-text > a {\n  display: inline;\n  padding: 0; }\n\n.top-bar .active-link {\n  font-weight: bold; }\n\n.clock {\n  align-items: center;\n  background-color: #B5D0E2;\n  border: 2px solid #2099E8;\n  border-radius: 50%;\n  display: flex;\n  height: 14rem;\n  justify-content: center;\n  margin: 4rem auto;\n  width: 14rem; }\n\n.clock-text {\n  color: white;\n  font-size: 2.25rem;\n  font-weight: 300; }\n\n.controls {\n  display: flex;\n  justify-content: center; }\n  .controls .button {\n    padding: .75rem 3rem; }\n  .controls .button:first-child {\n    margin-right: 1.5rem; }\n", ""]);
 
 	// exports
 

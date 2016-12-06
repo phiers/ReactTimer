@@ -1,6 +1,7 @@
 import React from 'react';
 import Clock from 'Clock';
 import CountdownForm from 'CountdownForm';
+import Controls from 'Controls';
 
 export default class Countdown extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ export default class Countdown extends React.Component {
       countdownStatus: 'stopped',
     };
     this.handleSetCountdown = this.handleSetCountdown.bind(this);
+    this.handleStatusChange = this.handleStatusChange.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -18,10 +20,20 @@ export default class Countdown extends React.Component {
         case 'started':
           this.startTimer();
           break;
+        case 'stopped':
+          this.clearTimer();
+        case 'paused':
+          clearInterval(this.timer);
+          this.timer = undefined;
+          break;
         default:
           break;
       }
     }
+  }
+  // I only made this function becuase ESLint doesn't like setState in CWU
+  clearTimer() {
+    this.setState({ count: 0 });
   }
 
   startTimer() {
@@ -29,6 +41,7 @@ export default class Countdown extends React.Component {
       const newCount = this.state.count - 1;
       this.setState({
         count: newCount >= 0 ? newCount : 0,
+        countdownStatus: newCount >= 0 ? 'started' : 'stopped',
       });
     }, 1000);
   }
@@ -39,12 +52,30 @@ export default class Countdown extends React.Component {
       countdownStatus: 'started',
     });
   }
+
+  handleStatusChange(newStatus) {
+    this.setState({ countdownStatus: newStatus });
+  }
+
   render() {
-    const { count } = this.state;
+    const { count, countdownStatus } = this.state;
+    const renderControlsArea = () => {
+      let controlArea;
+      if (countdownStatus !== 'stopped') {
+        controlArea = (<Controls
+          countdownStatus={countdownStatus}
+          onStatusChange={this.handleStatusChange}
+        />);
+      } else {
+        controlArea = <CountdownForm onSetCountdown={this.handleSetCountdown} />;
+      }
+      return controlArea;
+    };
+
     return (
       <div>
         <Clock totalSeconds={count} />
-        <CountdownForm onSetCountdown={this.handleSetCountdown} />
+        { renderControlsArea() }
       </div>
     );
   }
