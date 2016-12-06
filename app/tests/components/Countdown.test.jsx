@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import expect from 'expect';
@@ -5,7 +6,8 @@ import $ from 'jQuery';
 import TestUtils from 'react-addons-test-utils';
 
 import Countdown from 'Countdown';
-
+/* eslint-enable */
+/* eslint-disable no-undef */
 describe('Countdown', () => {
   it('should exist', () => {
     expect(Countdown).toExist();

@@ -1,8 +1,9 @@
+/* eslint-disable */
 import React from 'react';
 import Clock from 'Clock';
 import CountdownForm from 'CountdownForm';
 import Controls from 'Controls';
-
+/* eslint-enable */
 export default class Countdown extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +23,7 @@ export default class Countdown extends React.Component {
           break;
         case 'stopped':
           this.clearTimer();
-        case 'paused':
+        case 'paused': // eslint-disable-line no-fallthrough
           clearInterval(this.timer);
           this.timer = undefined;
           break;
@@ -30,10 +31,6 @@ export default class Countdown extends React.Component {
           break;
       }
     }
-  }
-
-  componentWillMount() {
-
   }
 
   componentWillUnmount() {

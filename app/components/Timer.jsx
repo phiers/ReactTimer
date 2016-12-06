@@ -1,6 +1,6 @@
 import React from 'react';
-import Clock from 'Clock';
-import Controls from 'Controls';
+import Clock from 'Clock'; //eslint-disable-line
+import Controls from 'Controls'; //eslint-disable-line
 
 export default class Timer extends React.Component {
   render() {
