@@ -31,6 +31,15 @@ export default class Countdown extends React.Component {
       }
     }
   }
+
+  componentWillMount() {
+
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    this.timer = undefined;
+  }
   // I only made this function becuase ESLint doesn't like setState in CWU
   clearTimer() {
     this.setState({ count: 0 });
@@ -74,6 +83,7 @@ export default class Countdown extends React.Component {
 
     return (
       <div>
+        <h1 className="page-title">Countdown App</h1>
         <Clock totalSeconds={count} />
         { renderControlsArea() }
       </div>
