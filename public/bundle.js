@@ -25504,6 +25504,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	// eslint-disable-line
+
+
 	var Main = function Main(props) {
 	  return _react2.default.createElement(
 	    'div',
@@ -25629,30 +25632,91 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //eslint-disable-line
+
+
+	//eslint-disable-line
 
 	var Timer = function (_React$Component) {
 	  _inherits(Timer, _React$Component);
 
-	  function Timer() {
+	  function Timer(props) {
 	    _classCallCheck(this, Timer);
 
-	    return _possibleConstructorReturn(this, (Timer.__proto__ || Object.getPrototypeOf(Timer)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Timer.__proto__ || Object.getPrototypeOf(Timer)).call(this, props));
+
+	    _this.state = {
+	      count: 0,
+	      timerStatus: 'paused'
+	    };
+	    _this.handleStatusChange = _this.handleStatusChange.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(Timer, [{
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate(prevProps, prevState) {
+	      if (this.state.timerStatus !== prevState.timerStatus) {
+	        switch (this.state.timerStatus) {
+	          case 'started':
+	            this.startTimer();
+	            break;
+	          case 'stopped':
+	            this.clearTimer();
+	          case 'paused':
+	            // eslint-disable-line no-fallthrough
+	            clearInterval(this.timer);
+	            this.timer = undefined;
+	            break;
+	          default:
+	            break;
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      clearInterval(this.timer);
+	      this.timer = undefined;
+	    }
+	  }, {
+	    key: 'handleStatusChange',
+	    value: function handleStatusChange(newStatus) {
+	      this.setState({ timerStatus: newStatus });
+	    }
+	  }, {
+	    key: 'startTimer',
+	    value: function startTimer() {
+	      var _this2 = this;
+
+	      this.timer = setInterval(function () {
+	        _this2.setState({
+	          count: _this2.state.count + 1
+	        });
+	      }, 1000);
+	    }
+	  }, {
+	    key: 'clearTimer',
+	    value: function clearTimer() {
+	      this.setState({ count: 0 });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _state = this.state,
+	          count = _state.count,
+	          clockStatus = _state.clockStatus;
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Timer'
+	          'h1',
+	          { className: 'page-title' },
+	          'Clock App'
 	        ),
-	        _react2.default.createElement(_Clock2.default, null),
-	        _react2.default.createElement(_Controls2.default, null)
+	        _react2.default.createElement(_Clock2.default, { totalSeconds: count }),
+	        _react2.default.createElement(_Controls2.default, { countdownStatus: clockStatus, onStatusChange: this.handleStatusChange })
 	      );
 	    }
 	  }]);
@@ -25793,7 +25857,7 @@
 	            { className: 'button secondary', onClick: _this3.onStatusChange('paused') },
 	            'Pause'
 	          );
-	        } else if (countdownStatus === 'paused') {
+	        } else {
 	          button = _react2.default.createElement(
 	            'button',
 	            { className: 'button primary', onClick: _this3.onStatusChange('started') },
@@ -25860,8 +25924,10 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable */
 
+
+	/* eslint-enable */
 	var Countdown = function (_React$Component) {
 	  _inherits(Countdown, _React$Component);
 
@@ -25890,6 +25956,7 @@
 	          case 'stopped':
 	            this.clearTimer();
 	          case 'paused':
+	            // eslint-disable-line no-fallthrough
 	            clearInterval(this.timer);
 	            this.timer = undefined;
 	            break;
@@ -25898,9 +25965,6 @@
 	        }
 	      }
 	    }
-	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {}
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {

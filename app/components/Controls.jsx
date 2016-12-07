@@ -12,7 +12,7 @@ export default class Controls extends React.Component {
       let button;
       if (countdownStatus === 'started') {
         button = <button className="button secondary" onClick={this.onStatusChange('paused')}>Pause</button>;
-      } else if (countdownStatus === 'paused') {
+      } else {
         button = <button className="button primary" onClick={this.onStatusChange('started')}>Start</button>;
       }
       return button;
