@@ -53,12 +53,12 @@ export default class Timer extends React.Component {
   }
 
   render() {
-    const { count, clockStatus } = this.state;
+    const { count, timerStatus } = this.state;
     return (
       <div>
         <h1 className="page-title">Clock App</h1>
         <Clock totalSeconds={count} />
-        <Controls countdownStatus={clockStatus} onStatusChange={this.handleStatusChange} />
+        <Controls countdownStatus={timerStatus} onStatusChange={this.handleStatusChange} />
       </div>
     );
   }

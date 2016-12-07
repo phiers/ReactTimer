@@ -25705,7 +25705,7 @@
 	    value: function render() {
 	      var _state = this.state,
 	          count = _state.count,
-	          clockStatus = _state.clockStatus;
+	          timerStatus = _state.timerStatus;
 
 	      return _react2.default.createElement(
 	        'div',
@@ -25716,7 +25716,7 @@
 	          'Clock App'
 	        ),
 	        _react2.default.createElement(_Clock2.default, { totalSeconds: count }),
-	        _react2.default.createElement(_Controls2.default, { countdownStatus: clockStatus, onStatusChange: this.handleStatusChange })
+	        _react2.default.createElement(_Controls2.default, { countdownStatus: timerStatus, onStatusChange: this.handleStatusChange })
 	      );
 	    }
 	  }]);
