@@ -15,5 +15,4 @@ const Main = props =>
      </div>
   );
 
-
 module.exports = Main;

@@ -18,7 +18,7 @@ const Nav = () =>
       </div>
       <div className="top-bar-right">
         <ul className="menu horizontal">
-          <li className="menu-text">Created by <a href="" target="_blank">Paul Hiers</a></li>
+          <li className="menu-text">Created by <a href="https://github.com/phiers/Reacttimer" target="_blank">Paul Hiers</a></li>
         </ul>
       </div>
     </div>

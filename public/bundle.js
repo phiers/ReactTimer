@@ -120,9 +120,11 @@
 
 	// Load foundation
 	__webpack_require__(236);
+	/* eslint-disable */
+
 	$(document).foundation();
-	//app.css
 	__webpack_require__(240);
+	/* eslint-enable */
 
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRouter.Router,
@@ -133,7 +135,7 @@
 	    _react2.default.createElement(_reactRouter.Route, { path: 'countdown', component: _Countdown2.default }),
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Timer2.default })
 	  )
-	), document.getElementById('app'));
+	), document.getElementById('app')); //eslint-disable-line
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ },
@@ -25590,7 +25592,7 @@
 	            'Created by ',
 	            _react2.default.createElement(
 	              'a',
-	              { href: '', target: '_blank' },
+	              { href: 'https://github.com/phiers/Reacttimer', target: '_blank' },
 	              'Paul Hiers'
 	            )
 	          )
