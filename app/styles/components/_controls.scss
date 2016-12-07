@@ -5,6 +5,10 @@
   .button {
     padding: .75rem 3rem;
   }
+    .button:active,
+    .button:focus {
+      outline: none;
+    }
 
   .button:first-child {
     margin-right: 1.5rem;
